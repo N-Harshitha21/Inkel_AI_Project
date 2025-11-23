@@ -143,3 +143,4 @@ class FavoritesManager:
                 'message': 'Favorite not found'
             }
 
+

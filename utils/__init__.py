@@ -5,3 +5,4 @@ from .favorites_manager import FavoritesManager
 
 __all__ = ['FavoritesManager']
 
+

@@ -70,7 +70,7 @@ class WeatherAgent:
         rain_chance = weather_data.get('precipitation_probability', 0)
         
         if temp is not None:
-            return f"In {place_name} it's currently {int(temp)}C with a chance of {int(rain_chance)}% to rain."
+            return f"In {place_name} it's currently {int(temp)}°C with a chance of {int(rain_chance)}% to rain."
         else:
             return f"Unable to fetch weather information for {place_name}."
 

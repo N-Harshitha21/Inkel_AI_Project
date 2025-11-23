@@ -334,6 +334,46 @@ curl -X POST "http://localhost:8000/query" \
 
 Or visit `http://localhost:8000/docs` for interactive API documentation.
 
+## 🚀 Deploy to Streamlit Cloud
+
+Follow these steps to deploy and get a live URL like https://inkel-tourism.streamlit.app
+
+Prerequisites
+- A GitHub repository with this project pushed
+- These files present: streamlit_app.py, requirements.txt, runtime.txt, .streamlit/config.toml, agents/, utils/
+
+1) Push the code to GitHub
+- Ensure your latest changes are pushed (including the deployment fixes already made):
+  - requirements.txt (includes Streamlit, folium, streamlit-folium, plotly, pandas, Pillow, numpy)
+  - runtime.txt (python-3.11)
+  - .streamlit/config.toml (headless config for Cloud)
+
+2) Create the app on Streamlit Cloud
+- Open https://share.streamlit.io and click "New app"
+- Connect your GitHub repo and select the branch
+- Main file path: streamlit_app.py
+- Python version: will be picked from runtime.txt (3.11)
+- Click Deploy
+
+3) Name your app URL
+- After deployment, go to Settings → Advanced settings → App name
+- Set app name to: inkel-tourism to get: https://inkel-tourism.streamlit.app
+
+4) (Optional) Add secrets
+- If you later add API keys, set them in Streamlit Cloud → App → Settings → Secrets
+
+Troubleshooting
+- ModuleNotFoundError (e.g., folium): Confirm requirements.txt includes folium==0.15.0 and streamlit-folium==0.15.0
+- Python mismatch: Ensure runtime.txt = python-3.11
+- Function not found errors: Already fixed function order in streamlit_app.py
+
+Screenshots (placeholders)
+- docs/streamlit_new_app.png – Creating a new app
+- docs/streamlit_settings.png – App settings with main file path
+- docs/streamlit_running.png – Deployed app running
+
+---
+
 ## 📄 License
 
 This project is created for educational purposes as part of an AI Intern role assessment.
