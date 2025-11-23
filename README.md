@@ -84,15 +84,11 @@ User Input → Parent Agent → [Extract Place] → Geocoding Agent
 - **Python 3.8+**: Main development language
 
 ### Python Libraries
-- **FastAPI**: Modern, fast web framework for building APIs
-- **Uvicorn**: ASGI server for running FastAPI
+- **Streamlit**: Interactive web application framework
 - **Requests**: HTTP library for API calls
-- **Pydantic**: Data validation using Python type annotations
+- **Folium**: Interactive map visualization
+- **streamlit-folium**: Streamlit integration for Folium maps
 - **re**: Regular expressions for text parsing (built-in)
-
-### Server/Backend Tools
-- **FastAPI**: RESTful API framework
-- **Uvicorn**: Production-ready ASGI server
 
 ### Optional LLMs
 - **Not Required**: The current implementation uses rule-based pattern matching for intent detection and place extraction. However, you can optionally integrate:
@@ -100,10 +96,9 @@ User Input → Parent Agent → [Extract Place] → Geocoding Agent
   - **OpenAI API**: For GPT-based reasoning
   - **Hugging Face Transformers**: For local model inference
 
-### Optional Frontend Tools
-- **React/Vue/Angular**: For building a web interface
-- **HTML/CSS/JavaScript**: For a simple web frontend
-- **Streamlit**: For a quick Python-based UI
+### Frontend
+- **Streamlit**: Interactive web-based UI with real-time processing
+- **Folium**: Interactive map visualization showing locations and attractions
 
 ## 🏗️ Full System Architecture
 
@@ -143,9 +138,14 @@ Inkel_AI_Project/
 │   ├── geocoding_agent.py   # Nominatim API integration
 │   ├── weather_agent.py     # Open-Meteo API integration
 │   └── places_agent.py      # Overpass API integration
-├── api/
-│   └── main.py              # FastAPI backend
+├── utils/
+│   ├── __init__.py
+│   └── favorites_manager.py # Favorites management
+├── streamlit_app.py         # Streamlit web application
 ├── requirements.txt         # Python dependencies
+├── runtime.txt              # Python version for deployment
+├── .streamlit/
+│   └── config.toml          # Streamlit configuration
 └── README.md               # This file
 ```
 
@@ -188,13 +188,14 @@ touch agents/__init__.py
 - Coordinates all child agents
 - Combines responses intelligently
 
-### 6. Building Backend API
+### 6. Building Streamlit Web Application
 
-**File**: `api/main.py`
-- FastAPI application with CORS enabled
-- `/query` endpoint accepts POST requests with user queries
-- Returns formatted responses
-- Health check endpoint
+**File**: `streamlit_app.py`
+- Interactive web interface using Streamlit
+- Real-time query processing with ParentAgent
+- Interactive map visualization with Folium
+- Query history and favorites management
+- Beautiful UI with modern design
 
 ### 7. Optional: Adding LLM Reasoning
 
@@ -210,33 +211,19 @@ import ollama
 response = ollama.chat(model='llama2', messages=[{'role': 'user', 'content': query}])
 ```
 
-### 8. Optional: Adding Frontend
+### 7. Testing the System
 
-Create a simple HTML/JavaScript frontend or use Streamlit:
-```python
-import streamlit as st
-import requests
-
-query = st.text_input("Enter your query")
-if st.button("Submit"):
-    response = requests.post("http://localhost:8000/query", json={"query": query})
-    st.write(response.json()["response"])
-```
-
-### 9. Testing the System
-
-Run the API:
+Run the Streamlit application:
 ```bash
-cd api
-python main.py
+streamlit run streamlit_app.py
 ```
 
-Test with curl:
-```bash
-curl -X POST "http://localhost:8000/query" \
-  -H "Content-Type: application/json" \
-  -d '{"query": "I'\''m going to go to Bangalore, let'\''s plan my trip."}'
-```
+The app will open in your browser at `http://localhost:8501`
+
+Test with example queries:
+- "I'm going to go to Bangalore, let's plan my trip."
+- "I'm going to go to Bangalore, what is the temperature there"
+- "I'm going to go to Bangalore, what is the temperature there? And what are the places I can visit?"
 
 ## 📝 Example Inputs + Outputs
 
@@ -291,7 +278,7 @@ I don't know this place exists. Could you please provide a valid place name?
 3. **Real-Time Data**: Provides current weather and up-to-date place information
 4. **Error Handling**: Gracefully handles invalid places and API errors
 5. **Flexible Queries**: Supports weather-only, places-only, or combined queries
-6. **RESTful API**: Provides a clean API interface for integration
+6. **Interactive Web Interface**: Beautiful Streamlit app with map visualization
 
 ### Why This Project is Useful for an AI Intern Role
 
@@ -307,7 +294,7 @@ I don't know this place exists. Could you please provide a valid place name?
 - ✅ **Python Programming**: Object-oriented design, error handling, API integration
 - ✅ **System Architecture**: Multi-agent design patterns, separation of concerns
 - ✅ **API Integration**: RESTful API consumption, rate limiting, error handling
-- ✅ **Backend Development**: FastAPI, async programming, API design
+- ✅ **Web Development**: Streamlit, interactive UI design, map visualization
 - ✅ **Natural Language Processing**: Text parsing, intent detection, pattern matching
 - ✅ **Problem Decomposition**: Breaking complex problems into manageable agents
 - ✅ **Documentation**: Clear, comprehensive project documentation
@@ -319,58 +306,53 @@ I don't know this place exists. Could you please provide a valid place name?
 pip install -r requirements.txt
 ```
 
-2. **Run the API**:
+2. **Run the Streamlit Application**:
 ```bash
-cd api
-python main.py
+streamlit run streamlit_app.py
 ```
 
-3. **Test the API**:
-```bash
-curl -X POST "http://localhost:8000/query" \
-  -H "Content-Type: application/json" \
-  -d '{"query": "I'\''m going to Bangalore, what'\''s the weather?"}'
-```
+3. **Access the Application**:
+- The app will automatically open in your browser at `http://localhost:8501`
+- Enter your tourism queries in the input field
+- View results with interactive map visualization
 
-Or visit `http://localhost:8000/docs` for interactive API documentation.
+4. **Test with Example Queries**:
+- "I'm going to go to Bangalore, let's plan my trip."
+- "I'm going to go to Bangalore, what is the temperature there"
+- "I'm going to go to Bangalore, what is the temperature there? And what are the places I can visit?"
 
 ## 🚀 Deploy to Streamlit Cloud
 
-Follow these steps to deploy and get a live URL like https://inkel-tourism.streamlit.app
+The application is already deployed and live at:
+**https://inkelaiproject-3m5gqfpepa7aeh8g89xmfv.streamlit.app/**
 
-Prerequisites
-- A GitHub repository with this project pushed
-- These files present: streamlit_app.py, requirements.txt, runtime.txt, .streamlit/config.toml, agents/, utils/
+### Deployment Steps (Already Completed):
 
-1) Push the code to GitHub
-- Ensure your latest changes are pushed (including the deployment fixes already made):
-  - requirements.txt (includes Streamlit, folium, streamlit-folium, plotly, pandas, Pillow, numpy)
-  - runtime.txt (python-3.11)
-  - .streamlit/config.toml (headless config for Cloud)
+1. **Repository Setup**: Code is pushed to GitHub at https://github.com/N-Harshitha21/Inkel_AI_Project
 
-2) Create the app on Streamlit Cloud
-- Open https://share.streamlit.io and click "New app"
-- Connect your GitHub repo and select the branch
-- Main file path: streamlit_app.py
-- Python version: will be picked from runtime.txt (3.11)
-- Click Deploy
+2. **Streamlit Cloud Configuration**:
+   - Main file path: `streamlit_app.py`
+   - Python version: `3.11` (from runtime.txt)
+   - All dependencies in `requirements.txt`
 
-3) Name your app URL
-- After deployment, go to Settings → Advanced settings → App name
-- Set app name to: inkel-tourism to get: https://inkel-tourism.streamlit.app
+3. **Required Files Present**:
+   - ✅ `streamlit_app.py` - Main application
+   - ✅ `requirements.txt` - All dependencies
+   - ✅ `runtime.txt` - Python version
+   - ✅ `.streamlit/config.toml` - Streamlit configuration
+   - ✅ `agents/` - All agent modules
+   - ✅ `utils/` - Utility modules
 
-4) (Optional) Add secrets
-- If you later add API keys, set them in Streamlit Cloud → App → Settings → Secrets
+### To Deploy Your Own Instance:
 
-Troubleshooting
-- ModuleNotFoundError (e.g., folium): Confirm requirements.txt includes folium==0.15.0 and streamlit-folium==0.15.0
-- Python mismatch: Ensure runtime.txt = python-3.11
-- Function not found errors: Already fixed function order in streamlit_app.py
+1. Fork/clone the repository
+2. Go to https://share.streamlit.io
+3. Click "New app"
+4. Connect your GitHub repository
+5. Set main file path to: `streamlit_app.py`
+6. Click "Deploy"
 
-Screenshots (placeholders)
-- docs/streamlit_new_app.png – Creating a new app
-- docs/streamlit_settings.png – App settings with main file path
-- docs/streamlit_running.png – Deployed app running
+The app will be live in a few minutes!
 
 ---
 
