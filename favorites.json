@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "place_name": "Bengaluru, Bangalore North, Bengaluru Urban, Karnataka, India",
+    "coordinates": {
+      "lat": 12.9767936,
+      "lon": 77.590082
+    },
+    "weather_data": null,
+    "places_data": [
+      {
+        "name": "Rajarajeshwari Arch",
+        "lat": 12.9359565,
+        "lon": 77.5183096
+      },
+      {
+        "name": "Canara Bank Holiday Home",
+        "lat": 12.9316521,
+        "lon": 77.5907098
+      },
+      {
+        "name": "Chickpet Cross",
+        "lat": 12.9680027,
+        "lon": 77.578642
+      },
+      {
+        "name": "Lalbagh Glasshouse",
+        "lat": 12.9498004,
+        "lon": 77.5865608
+      },
+      {
+        "name": "Hotel Hindustan",
+        "lat": 12.9762752,
+        "lon": 77.5767096
+      }
+    ],
+    "created_at": null
+  },
+  {
+    "id": 2,
+    "place_name": "Kerala, India",
+    "coordinates": {
+      "lat": 10.3528744,
+      "lon": 76.5120396
+    },
+    "weather_data": {
+      "temperature": 23.6,
+      "precipitation_probability": 6,
+      "time": "2025-11-23T06:00"
+    },
+    "places_data": [
+      {
+        "name": "Ticket Booth",
+        "lat": 10.2884884,
+        "lon": 76.5651904
+      },
+      {
+        "name": "Athirappalli Waterfalls",
+        "lat": 10.2857316,
+        "lon": 76.5707444
+      },
+      {
+        "name": "Athirappilly and Vazhachal Waterfalls",
+        "lat": 10.2847989,
+        "lon": 76.5691181
+      },
+      {
+        "name": "Charpa Waterfall",
+        "lat": 10.3039578,
+        "lon": 76.5796239
+      },
+      {
+        "name": "Plantation Valley Farm Resort",
+        "lat": 10.2905453,
+        "lon": 76.547978
+      }
+    ],
+    "created_at": null
+  }
+]
